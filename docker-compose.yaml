@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  simple-iot-server:
+    build: .
+    container_name: simple-iot-server
+    volumes:
+        - "./app/:/opt/app"
+    ports:
+      - 32121:80
