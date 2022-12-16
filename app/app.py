@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request, render_template
 from dotenv import load_dotenv
+import requests
 import logging
 import os
 import time
@@ -12,6 +13,7 @@ tasks = {}
 
 @app.route("/")
 def top():
+    remote_control('http://172.30.200.4:32121/api/send', 'air', 'cancel')
     return jsonify({'status':'ok'}), 200
 
 ## API
@@ -28,6 +30,19 @@ def temp():
 
         #app.logger.info(hum,temp)
         return jsonify({'status':'ok'}), 200
+
+# API-RequestSend
+def remote_control(addr=None, hw=None, func=None):
+    if addr is None or hw is None or func is None:
+        app.logger.info("RemoteControll: 引数が正しくありません")
+        return True
+    
+    p = {'hw':hw, 'func':func}
+    r = requests.get(addr, params=p)
+    app.logger.info(f"RemoteControll: {r}")
+    
+    return False
+
 
 
 ## WebUI
