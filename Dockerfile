@@ -8,6 +8,8 @@ ADD app/ .
 RUN python -m pip install --upgrade pip
 RUN python -m pip install -r requirements.txt
 
+ENV PYTHONUNBUFFERED 1
+
 ENTRYPOINT [ "python", "app.py" ] 
 
 EXPOSE 80

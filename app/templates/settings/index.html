@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: #f2f2f2;
+            font-family: "Roboto", sans-serif;
+        }
+        
+        .container {
+            width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+        
+        .header {
+            text-align: center;
+            font-weight: bold;
+            font-size: 24px;
+            padding-bottom: 15px;
+        }
+        
+        .settings-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .settings-list li {
+            padding: 10px 0;
+            border-bottom: 1px solid #eeeeee;
+        }
+        
+        .settings-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .settings-list span {
+            width: 30%;
+            display: inline-block;
+            font-weight: bold;
+        }
+        
+        .settings-list input[type="text"],
+        .settings-list select {
+            width: calc(70% - 10px);
+            padding: 5px;
+            border: 1px solid #dddddd;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+        
+        .button {
+            text-align: center;
+            padding-top: 15px;
+        }
+        
+        .button button {
+            padding: 10px 20px;
+            background-color: #00bfa5;
+            color: #ffffff;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+        }
+        
+        .button button:hover {
+            background-color: #00a087;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">Settings list</div>
+        <ul class="settings-list">
+            <li>
+                <span>Name:</span>
+                <input type="text" name="name" />
+            </li>
+            <li>
+                <span>Gender:</span>
+                <select name="gender">
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+            </li>
+            <li>
+                <span>Age:</span>
+                <input type="text" name="age" />
+            </li>
+        </ul>
+        <div class="button">
+            <button type="submit">Save</button>
+        </div>
+    </div>
+</body>
+<!-- Open AI Build Page -->
+
+</html>

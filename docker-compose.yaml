@@ -6,5 +6,7 @@ services:
     container_name: simple-iot-server
     volumes:
         - "./app/:/opt/app"
+    environment:
+      - PORT=8080
     ports:
-      - 32121:80
+      - 32121:8080
