@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, redirect, url_for
 from dotenv import load_dotenv
 import requests
 import logging
@@ -89,13 +89,47 @@ def run_send_task(hw_name, task):
         return True
     return False
 
+# is white-space
+def isws(s:str) -> bool:
+    return (not s) or s.isspace()
+
 
 
 ## WebUI
 @app.route("/settings/")
 def settings():    
-    return render_template('settings/index.html')
+    print(send_hw)
+    return render_template('settings/index.html', hws=send_hw, rules=send_tasks)
 
+@app.route("/settings/add-hw/", methods=["GET","POST"])
+def add_hw():
+    if request.method == 'GET':
+        return render_template('settings/add-hw.html')
+    elif request.method == 'POST':
+        name = request.form.get('name')
+        addr = request.form.get('addr')
+        hw_type = request.form.get('hw-type')
+
+        if isws(name) or isws(addr) or isws(hw_type):
+            app.logger.info("フォームが空")
+            return redirect(url_for('settings'))
+        
+        send_hw[name] = [addr, hw_type]
+        app.logger.info(f"add_hw: {name},{addr},{hw_type}")
+        return redirect(url_for('settings'))
+
+@app.route("/settings/add-rule/", methods=["GET","POST"])
+def add_rule():
+    if request.method == 'GET':
+        return render_template('settings/add-rule.html')
+    elif request.method == 'POST':
+        # name = request.form.get('name')
+        # addr = request.form.get('addr')
+        # hw_type = request.form.get('hw-type')
+        
+        # send_hw[name] = [addr, hw_type]
+        app.logger.info(f"add_rule: ")
+        return redirect(url_for('settings'))
 
 ## App
 def main():

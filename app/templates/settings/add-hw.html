@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Settings</title>
+    <title>Settings | Add hardware</title>
 
     <style>
         * {
@@ -85,39 +85,30 @@
 <body>
     <div class="container">
         <div style="margin: 15px"></div>
-        <div class="header">Rule-list</div>
+        <div class="header">機材の追加</div>
 
-        <ul class="settings-list"></ul>
-        <div class="button">
-            <button onclick="location.href='{{url_for('add_rule')}}'">
-                    Add rule
-                </button>
-        </div>
+        <form method="post">
+            <ul class="settings-list">
+                <li>
+                    <span>Name:</span>
+                    <input type="text" name="name" placeholder="room light" />
+                </li>
+                <li>
+                    <span>Address:</span>
+                    <input type="text" name="addr" placeholder="https://example.com/" />
+                </li>
+                <li>
+                    <span>Type:</span>
+                    <select name="hw-type">
+                            <option value="remote">RemoteController</option>
+                        </select>
+                </li>
+            </ul>
 
-        <div style="
-                    border-bottom: 2px solid black;
-                    padding: 1em;
-                    margin: 5px 10px 35px 10px;
-                "></div>
-
-        <div class="header">Hardware-list</div>
-        <ul class="settings-list">
-            {% for item in hws %}
-
-            <li>
-                <span>Name: {{item}}</span>
-                <p>Address: {{hws[item][0]}}</p>
-                <p>Type: {{hws[item][1]}}</p>
-            </li>
-
-            {% endfor %}
-        </ul>
-
-        <div class="button">
-            <button onclick="location.href='{{url_for('add_hw')}}'">
-                    Add Hardware
-                </button>
-        </div>
+            <div class="button">
+                <button type="submit">Save</button>
+            </div>
+        </form>
     </div>
 </body>
 <!-- Open AI Build Page -->
