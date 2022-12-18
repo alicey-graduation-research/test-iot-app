@@ -99,7 +99,7 @@ def isws(s:str) -> bool:
 @app.route("/settings/")
 def settings():    
     print(send_hw)
-    return render_template('settings/index.html', hws=send_hw, rules=send_tasks)
+    return render_template('settings/index.html', out_hws=send_hw, in_hws=res_hw, rules=send_tasks)
 
 @app.route("/settings/add-hw/", methods=["GET","POST"])
 def add_hw():

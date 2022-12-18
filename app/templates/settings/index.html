@@ -100,24 +100,40 @@
                     margin: 5px 10px 35px 10px;
                 "></div>
 
-        <div class="header">Hardware-list</div>
+        <div class="header">Output-Hardware-list</div>
         <ul class="settings-list">
-            {% for item in hws %}
+            {% for item in out_hws %}
 
             <li>
                 <span>Name: {{item}}</span>
-                <p>Address: {{hws[item][0]}}</p>
-                <p>Type: {{hws[item][1]}}</p>
+                <p>Address: {{out_hws[item][0]}}</p>
+                <p>Type: {{out_hws[item][1]}}</p>
             </li>
 
             {% endfor %}
         </ul>
-
         <div class="button">
             <button onclick="location.href='{{url_for('add_hw')}}'">
                     Add Hardware
                 </button>
         </div>
+
+        <div style="
+                    border-bottom: 2px solid black;
+                    padding: 1em;
+                    margin: 5px 10px 35px 10px;
+                "></div>
+        <div class="header">Input-Hardware-list</div>
+        <ul class="settings-list">
+            {% for item in in_hws %}
+
+            <li>
+                <span>Name: {{item}}</span>
+                <p>Type: {{in_hws[item]}}</p>
+            </li>
+
+            {% endfor %}
+        </ul>
     </div>
 </body>
 <!-- Open AI Build Page -->
