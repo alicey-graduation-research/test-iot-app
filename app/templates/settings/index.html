@@ -85,9 +85,19 @@
 <body>
     <div class="container">
         <div style="margin: 15px"></div>
-        <div class="header">Rule-list</div>
+        <div class="header">Rule list</div>
 
-        <ul class="settings-list"></ul>
+        <ul class="settings-list">
+            {% for hw in rules %} {% for item in rules[hw] %}
+            <li>
+                <!-- <p>{{item}}</p> -->
+                <span>Name: {{item[0]}}</span>
+                <p>Rule: {{item[4]}}</p>
+                <p>Output HW: {{item[1]}}</p>
+                <p>Run function: {{item[4]}}</p>
+            </li>
+            {% endfor %} {% endfor %}
+        </ul>
         <div class="button">
             <button onclick="location.href='{{url_for('add_rule')}}'">
                     Add rule
@@ -100,7 +110,7 @@
                     margin: 5px 10px 35px 10px;
                 "></div>
 
-        <div class="header">Output-Hardware-list</div>
+        <div class="header">Output hardware list</div>
         <ul class="settings-list">
             {% for item in out_hws %}
 
@@ -123,7 +133,7 @@
                     padding: 1em;
                     margin: 5px 10px 35px 10px;
                 "></div>
-        <div class="header">Input-Hardware-list</div>
+        <div class="header">Input hardware list</div>
         <ul class="settings-list">
             {% for item in in_hws %}
 

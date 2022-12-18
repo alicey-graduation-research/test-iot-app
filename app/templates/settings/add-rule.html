@@ -93,18 +93,72 @@
                     <span>Name:</span>
                     <input type="text" name="name" />
                 </li>
+            </ul>
+
+            <div style="
+                        border-bottom: 2px solid black;
+                        padding: 1em;
+                        margin: 5px 10px 35px 10px;
+                    "></div>
+
+            <ul class="settings-list">
                 <li>
-                    <span>URL:</span>
-                    <input type="text" name="url" />
+                    <span>Input Hardware:</span>
+                    <select name="input_hw">
+                            <!-- <option value="remote">RemoteController</option> -->
+                            {% for item in in_hws %}
+                            <option value="{{item}}">{{item}}</option>
+                            {% endfor %}
+                        </select>
                 </li>
                 <li>
-                    <span>Type:</span>
-                    <select name="hw-type">
-                            <option value="remote">RemoteController</option>
+                    <span>Operating conditions:</span>
+                    <br />
+                    <span>Kind:</span>
+                    <select name="kind">
+                            <!-- <option value="remote">RemoteController</option> -->
+                            <option value="temp_upper">temp_upper</option>
+                            <option value="temp_under">temp_under</option>
+                            <option value="hum_upper">hum_upper</option>
+                            <option value="hum_under">hum_under</option>
                         </select>
+                    <br />
+                    <span>Number:</span>
+                    <input type="text" name="number" />
                 </li>
             </ul>
 
+            <div style="
+                        border-bottom: 2px solid black;
+                        padding: 1em;
+                        margin: 5px 10px 35px 10px;
+                    "></div>
+
+            <ul class="settings-list">
+                <li>
+                    <span>Output Hardware:</span>
+                    <select name="output_hw">
+                            <!-- <option value="remote">RemoteController</option> -->
+                            {% for item in out_hws %}
+                            <option value="{{item}}">{{item}}</option>
+                            {% endfor %}
+                        </select>
+                </li>
+                <li>
+                    <span>path:</span>
+                    <input type="text" name="path" />
+                </li>
+
+                <li>
+                    <span>Option:</span>
+                    <br />
+                    <span>Remote Name:</span>
+                    <input type="text" name="remote_name" />
+                    <br />
+                    <span>Remote Function:</span>
+                    <input type="text" name="remote_func" />
+                </li>
+            </ul>
             <div class="button">
                 <button type="submit">Save</button>
             </div>
