@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request, render_template, redirect, url_for
 from dotenv import load_dotenv
+from pathlib import Path
 import requests
 import logging
 import os
 import time
+import pickle
 load_dotenv()
 
 app = Flask("simple-iot-server")
@@ -20,10 +22,60 @@ send_hw = {} #'hw-name':['addr', 'remote']
 res_hw = {} #'hw-name':'temp'
 
 
+# filesave
+def file_load():
+    try:
+        with open("data/send_tasks.dict", "rb") as f:
+            global send_tasks
+            send_tasks = pickle.load(f)
+    except:
+        pass
+    try:
+        with open("data/send_hw.dict", "rb") as f:
+            global send_hw
+            send_hw = pickle.load(f)
+    except:
+        pass
+    try:
+        with open("data/res_hw.dict", "rb") as f:
+            global res_hw
+            res_hw = pickle.load(f)
+    except:
+        pass
+
+def file_save():
+    try:
+        os.mkdir('data')
+    except:
+        pass
+
+    f = Path("data/send_tasks.dict")
+    f.touch(exist_ok=True)
+    with open(f, "wb") as f:
+        pickle.dump(send_tasks,f)
+
+    f = Path("data/send_hw.dict")
+    f.touch(exist_ok=True)
+    with open(f, "wb") as f:
+        pickle.dump(send_hw,f)
+        
+    f = Path("data/res_hw.dict")
+    f.touch(exist_ok=True)
+    with open(f, "wb") as f:
+        pickle.dump(res_hw,f)
+
+file_load()
+
+
 
 @app.route("/")
 def top():
     remote_control('http://172.30.200.4:32121/api/send', 'air', 'cancel')
+    return jsonify({'status':'ok'}), 200
+
+@app.route("/api/filesave/")
+def data_save():
+    file_save()
     return jsonify({'status':'ok'}), 200
 
 ## API
@@ -94,7 +146,6 @@ def run_send_task(task):
 # is white-space
 def isws(s:str) -> bool:
     return (not s) or s.isspace()
-
 
 
 ## WebUI
