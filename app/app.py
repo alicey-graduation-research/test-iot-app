@@ -7,6 +7,7 @@ import logging
 import os
 import time
 import pickle
+import base64
 load_dotenv()
 
 app = Flask("simple-iot-server")
@@ -124,9 +125,19 @@ def remote_control(addr=None, hw=None, func=None)-> bool:
     
     return False
 
-def send_discord_message(addr:str, msg:str):
+
+def send_discord_message(addr:str, msg:str, img_base64:str=None):
+    if img_base64 is not None:
+        img_bin = base64.b64decode(img_base64)
+    else:
+        img_bin = None
     discord = Discord(url=addr)
-    discord.post(content=msg)
+    discord.post(
+        embeds=[{"title": f"IoT-App", "description": f"{msg}"}],
+        file={
+            "img.png": img_bin
+        }
+    )
 
 # task executer
 def run_send_task(task):
