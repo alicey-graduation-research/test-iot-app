@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, request, render_template, redirect, url_for
 from dotenv import load_dotenv
 from pathlib import Path
+from discordwebhook import Discord
 import requests
 import logging
 import os
@@ -112,7 +113,7 @@ def temp():
         return jsonify({'status':'ok'}), 200
 
 # API-RequestSend
-def remote_control(addr=None, hw=None, func=None):
+def remote_control(addr=None, hw=None, func=None)-> bool:
     if addr is None or hw is None or func is None:
         app.logger.error("RemoteControll: 引数が正しくありません")
         return True
@@ -122,6 +123,10 @@ def remote_control(addr=None, hw=None, func=None):
     app.logger.info(f"RemoteControll: {r}")
     
     return False
+
+def send_discord_message(addr:str, msg:str):
+    discord = Discord(url=addr)
+    discord.post(content=msg)
 
 # task executer
 def run_send_task(task):
@@ -138,6 +143,8 @@ def run_send_task(task):
     
     if task_kind == 'remote':
         remote_control(f"{addr}/{path}", option[0], option[1])
+    elif task_kind == 'discord':
+        send_discord_message(addr, option[0])
     else:
         app.logger.error('run_send_task: 該当処理が存在しません')
         return True

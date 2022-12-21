@@ -1,4 +1,4 @@
 flask==2.2.2
 python-dotenv
 requests
-pickle
+discordwebhook
