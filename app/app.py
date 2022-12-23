@@ -100,7 +100,7 @@ def temp():
 
         # TaskDictを確認して、あれば実行
         if name in send_tasks:
-            app.logger.info(f"test!!!!!!!")
+            #app.logger.info(f"test!!!!!!!")
             tasks = send_tasks[name]
             for task in tasks:
                 if (task[4][0] == 'temp_upper' and float(task[4][1]) < float(temp)) \
@@ -108,9 +108,36 @@ def temp():
                     or (task[4][0] == 'hum_upper' and float(task[4][1]) < float(hum)) \
                     or (task[4][0] == 'hum_under' and float(task[4][1]) > float(hum)):
                     run_send_task(task)
-                    app.logger.info(f"run task: {task}")
+                    app.logger.info(f"{name} run task: {task}")
 
         #app.logger.info(hum,temp)
+        return jsonify({'status':'ok'}), 200
+
+@app.route("/api/image", methods=['GET','POST'])
+def api_image():
+    if request.method == 'GET':
+        return jsonify({'status':'ok'}), 200
+
+    elif request.method == 'POST':
+        if request.headers['Content-Type'] != 'application/json':
+            print(request.headers['Content-Type'])
+            return jsonify(res='error'), 400
+        name, img_base64 = request.json['name'], request.json['img_base64']
+        app.logger.info(f"/api/image[post]: name:{name}")
+
+        # 機材リストになければ送信元機材を追加
+        if name not in res_hw:
+            res_hw[str(name)] = 'image'
+            app.logger.info(f"add res_hw: {str(name)}")
+
+        # TaskDictを確認して、あれば実行
+        if name in send_tasks:
+            #app.logger.info(f"test!!!!!!!")
+            tasks = send_tasks[name]
+            for task in tasks:
+                run_send_task(task, img_base64)
+                app.logger.info(f"{name} run task: {task}")
+
         return jsonify({'status':'ok'}), 200
 
 # API-RequestSend
@@ -140,7 +167,7 @@ def send_discord_message(addr:str, msg:str, img_base64:str=None):
     )
 
 # task executer
-def run_send_task(task):
+def run_send_task(task, img_base64:str=None):
     try:
         task_name = task[0]
         hw_name = task[1]
@@ -155,7 +182,7 @@ def run_send_task(task):
     if task_kind == 'remote':
         remote_control(f"{addr}/{path}", option[0], option[1])
     elif task_kind == 'discord':
-        send_discord_message(addr, option[0])
+        send_discord_message(addr=addr, msg=option[0], img_base64=img_base64)
     else:
         app.logger.error('run_send_task: 該当処理が存在しません')
         return True
