@@ -113,7 +113,7 @@ def temp():
         #app.logger.info(hum,temp)
         return jsonify({'status':'ok'}), 200
 
-@app.route("/api/image", methods=['GET','POST'])
+@app.route("/api/image/", methods=['GET','POST'])
 def api_image():
     if request.method == 'GET':
         return jsonify({'status':'ok'}), 200
