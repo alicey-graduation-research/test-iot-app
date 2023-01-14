@@ -5,6 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings | Add rule</title>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/rule.js') }}"></script>
 
     <style>
         * {
@@ -104,7 +105,7 @@
             <ul class="settings-list">
                 <li>
                     <span>Input Hardware:</span>
-                    <select name="input_hw">
+                    <select name="input_hw" id="select_input_hw">
                             <!-- <option value="remote">RemoteController</option> -->
                             {% for item in in_hws %}
                             <option value="{{item}}">{{item}}</option>
@@ -114,17 +115,19 @@
                 <li>
                     <span>Operating conditions:</span>
                     <br />
-                    <span>Kind:</span>
-                    <select name="kind">
-                            <!-- <option value="remote">RemoteController</option> -->
-                            <option value="temp_upper">temp_upper</option>
+                    <div id="kind">
+                        <span>Kind:</span>
+                        <select name="kind" id="select_kind">
+                                <!-- <option value="remote">RemoteController</option> -->
+                                <!-- <option value="temp_upper">temp_upper</option>
                             <option value="temp_under">temp_under</option>
                             <option value="hum_upper">hum_upper</option>
-                            <option value="hum_under">hum_under</option>
-                        </select>
-                    <br />
-                    <span>Number:</span>
-                    <input type="text" name="number" />
+                            <option value="hum_under">hum_under</option> -->
+                            </select>
+                        <br />
+                        <span>Number:</span>
+                        <input type="text" name="number" />
+                    </div>
                 </li>
             </ul>
 
@@ -137,26 +140,32 @@
             <ul class="settings-list">
                 <li>
                     <span>Output Hardware:</span>
-                    <select name="output_hw">
+                    <select name="output_hw" id="select_output_hw">
                             <!-- <option value="remote">RemoteController</option> -->
                             {% for item in out_hws %}
                             <option value="{{item}}">{{item}}</option>
                             {% endfor %}
                         </select>
                 </li>
-                <li>
+                <li id="outhw_opt_path">
                     <span>path:</span>
                     <input type="text" name="path" />
                 </li>
 
-                <li>
+                <li id="outhw_opt">
                     <span>Option:</span>
-                    <br />
-                    <span>Remote Name:</span>
-                    <input type="text" name="remote_name" />
-                    <br />
-                    <span>Remote Function:</span>
-                    <input type="text" name="remote_func" />
+
+                    <div id="outhw_opt_remotename">
+                        <br />
+                        <span>Remote Name:</span>
+                        <input type="text" name="remote_name" />
+                    </div>
+
+                    <div id="outhw_opt_remotefunction">
+                        <br />
+                        <span>Remote Function:</span>
+                        <input type="text" name="remote_func" />
+                    </div>
                 </li>
             </ul>
             <div class="button">

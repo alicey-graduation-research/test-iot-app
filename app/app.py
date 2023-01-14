@@ -230,8 +230,10 @@ def add_rule():
         remote_name = request.form.get('remote_name') #Option
         remote_func = request.form.get('remote_func') #Option
 
-        if isws(task_name) or isws(input_hw) or  isws(kind) or isws(number) or isws(output_hw) or isws(path) or isws(remote_name) or isws(remote_func):
+        #if isws(task_name) or isws(input_hw) or  isws(kind) or isws(number) or isws(output_hw) or isws(path) or isws(remote_name) or isws(remote_func):
+        if isws(task_name) or isws(input_hw) or isws(output_hw):
             app.logger.info("add rule: フォームが空")
+            #print([task_name, output_hw, path, [remote_name, remote_func], [kind, number]])
             return redirect(url_for('settings'))
 
         if send_tasks.get(input_hw) is not None:
