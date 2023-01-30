@@ -29,8 +29,9 @@ function update_input_hw_selectbox(input_hw) {
     if (item.startsWith('dht11-post-')) {
         // 温湿度センサー 
         input_hw_option_view('temp');
-    } else if (item.startsWith('image_send_app')) {
+    } else if (item.startsWith('image-send-app')) {
         // camera
+        input_hw_option_view('image-send-app');
     }
 }
 
@@ -62,7 +63,7 @@ function input_hw_option_view(type) {
             append_option(sel, 'hum_upper')
             append_option(sel, 'hum_under')
             break
-        case 'camera':
+        case 'image-send-app':
             sel = document.getElementById('select_kind')
             while (0 < sel.childNodes.length) {
                 sel.removeChild(sel.childNodes[0]);
